@@ -1,0 +1,49 @@
+//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion "${BUILD_TOOL_VERSION}"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions{
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    compileOnly "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    compileOnly "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
+    implementation project(':agentweb-core')
+}
+//publish {
+//    userOrg = 'just'
+//    groupId = 'com.just.agentweb'
+//    artifactId = 'filechooser'
+//    publishVersion = '4.0.3-alpha'
+//    desc = 'very easy to build you web page'
+//    website = "https://github.com/Justson/AgentWeb"
+//
+//}

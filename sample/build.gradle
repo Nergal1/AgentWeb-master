@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion BUILD_TOOL_VERSION
+    defaultConfig {
+        applicationId "com.just.agentweb.sample"
+        minSdkVersion 19
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode 4
+        versionName "4.0.3-alpha"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+//    //签名配置
+//    signingConfigs {
+//        release {
+//            storeFile file("./keystore/keystore.jks")
+//            storePassword "admin123"
+//            keyAlias "agentweb"
+//            keyPassword "admin123"
+//        }
+//    }
+    buildTypes {
+        release {
+//            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+//            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    lintOptions {
+        abortOnError false
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs '../agentweb-download/libs'; dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.github.Justson:Downloader:v4.0.3'//一个轻量的文件下载器
+    //    compile "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
+    //本地依赖
+    implementation project(':agentweb-core')
+    implementation project(':agentweb-download')
+    implementation project(':agentweb-filechooser')
+    //远程依赖
+//    implementation 'com.just.agentweb:agentweb:4.0.3-alpha@aar'//// (必选)等同 modoule:agentweb-core
+//    implementation 'com.just.agentweb:filechooser:4.0.3-alpha@aar'//// (可选) 文件选择器 等同 modoule:agentweb-download
+//    implementation 'com.just.agentweb:download:4.0.3-alpha@aar'//(可选) webview文件下载 等同 modoule:agentweb-download
+    //内存泄漏检测三方库
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+//    compile files('libs/alipaysdk-20170922.jar')
+
+    implementation 'us.feras.mdv:markdownview:1.1.0'
+    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+    implementation 'com.google.code.gson:gson:2.3.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    implementation 'com.tencent.sonic:sdk:2.0.0'
+    implementation 'com.coolindicator.sdk:coolindicator:1.0.0-beta'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+}
