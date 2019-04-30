@@ -61,11 +61,12 @@ public final class ActionActivity extends Activity {
             @Override
             public void onRationaleResult(boolean showRationale, String permission) {
                 Log.i(TAG, "Rationale:" + showRationale + "  permission:" + permission);
+                // TODO: 2019-04-30 被禁止权限处理，添加需要处理的权限
                 switch (permission){
                     case "android.permission.ACCESS_FINE_LOCATION"://位置权限
                     case "android.permission.ACCESS_COARSE_LOCATION"://位置权限
                         //跳转到权限配置页面
-                        Toast.makeText(activity.getApplicationContext(),"请开启本应用定位权限",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity.getApplicationContext(),"请开启应用定位权限",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
