@@ -11,13 +11,13 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,7 +160,8 @@ public class NativeDownloadActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (downloadBean.getStatus() == DownloadTask.STATUS_NEW) {
-//                        downloadBean.setForceDownload(true);//是否强制下载，false:只能WI-FI下载；true：Wi-Fi，移动网络均可下载
+                        //todo 是否强制下载，false:只能WI-FI下载；true：Wi-Fi，移动网络均可下载
+                        downloadBean.setForceDownload(true);
                         DownloadImpl.getInstance().enqueue(downloadBean);
                         nativeDownloadViewHolder.mStatusButton.setText("暂停");
                     } else if (downloadBean.getStatus() == DownloadTask.STATUS_PENDDING || downloadBean.getStatus() == DownloadTask.STATUS_DOWNLOADING) {

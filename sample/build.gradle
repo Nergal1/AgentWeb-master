@@ -9,7 +9,7 @@ android {
         targetSdkVersion TARGET_SDK_VERSION.toInteger()
         versionCode 4
         versionName "4.0.3-alpha"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
 //    //签名配置
@@ -61,11 +61,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
-    implementation "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.Justson:Downloader:v4.0.3'//一个轻量的文件下载器
     //    compile "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
