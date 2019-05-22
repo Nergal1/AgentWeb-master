@@ -26,11 +26,13 @@ android {
 //            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [usesCleartextTraffic:"true"]//android 9.0以上，设置webview是否支持http链接。关联设置清单文件中android:usesCleartextTraffic="${usesCleartextTraffic}
         }
         debug {
 //            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [usesCleartextTraffic:"true"]//android 9.0以上，设置webview是否支持http链接。关联设置清单文件中android:usesCleartextTraffic="${usesCleartextTraffic}
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
@@ -53,6 +55,9 @@ android {
         }
     }
 }
+
+
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
