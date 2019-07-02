@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.PopupMenu;
+
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,6 +36,7 @@ import com.google.gson.Gson;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebConfig;
+import com.just.agentweb.AgentWebUtils;
 import com.just.agentweb.DefaultWebClient;
 import com.just.agentweb.IAgentWebSettings;
 import com.just.agentweb.LogUtils;
@@ -152,6 +155,24 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
         @Override
         public boolean intercept(String url, String[] permissions, String action) {
             Log.i(TAG, "mUrl:" + url + "  permission:" + mGson.toJson(permissions) + " action:" + action);
+            if (action.equals("camera")) {
+                if(!AgentWebUtils.hasPermission(getContext(),permissions)) {
+                    Toast.makeText(getActivity().getApplicationContext(), "请开启相机权限和存储权限", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                    intent.setData(uri);
+                    getActivity().startActivity(intent);
+                }
+            }else if(action.equals("storage")){
+                if(!AgentWebUtils.hasPermission(getContext(),permissions)) {
+                    Toast.makeText(getActivity().getApplicationContext(), "请开启存储权限", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                    intent.setData(uri);
+                    getActivity().startActivity(intent);
+                }
+            }
+
             return false;
         }
     };

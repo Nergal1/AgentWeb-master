@@ -176,7 +176,13 @@ public class FileChooser {
 	}
 
 	private void fileChooser() {
+		if (mPermissionInterceptor != null) {
+			if (mPermissionInterceptor.intercept(FileChooser.this.mWebView.getUrl(), AgentWebPermissions.STORAGE, "storage")) {
+				cancel();
+				return;
+			}
 
+		}
 		List<String> permission = null;
 		if (AgentWebUtils.getDeniedPermissions(mActivity, AgentWebPermissions.STORAGE).isEmpty()) {
 			touchOffFileChooserAction();

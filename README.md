@@ -60,12 +60,16 @@ mAgentWeb = AgentWeb.with(this)
 function callByAndroid(){
       console.log("callByAndroid")
   }
+```
+```java
 mAgentWeb.getJsAccessEntrace().quickCallJs("callByAndroid");
 ```
 
 * #### Javascript 调 Java ?
 ```java
 mAgentWeb.getJsInterfaceHolder().addJavaObject("android",new AndroidInterface(mAgentWeb,this));
+```
+```javascript
 window.android.callAndroid();
 ```
 

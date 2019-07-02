@@ -65,18 +65,37 @@ public final class ActionActivity extends Activity {
                 switch (permission){
                     case "android.permission.ACCESS_FINE_LOCATION"://位置权限
                     case "android.permission.ACCESS_COARSE_LOCATION"://位置权限
-                        //跳转到权限配置页面
-                        Toast.makeText(activity.getApplicationContext(),"请开启应用定位权限",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
-                        intent.setData(uri);
-                        activity.startActivity(intent);
+                        toPermissionSetting(activity,"请开启应用位置信息权限");
                         break;
+                    case "android.permission.READ_EXTERNAL_STORAGE"://文件读权限
+                    case "android.permission.WRITE_EXTERNAL_STORAGE"://文件写权限
+                        toPermissionSetting(activity,"请开启应用存储权限");
+                        break;
+                    case "android.permission.CAMERA":
+                        toPermissionSetting(activity,"请开启应用相机权限");
+                        break;
+
                 }
             }
         });
 
+    }
+
+    /**
+     * @author zhangchen
+     *
+     * @date 2019-07-02 09:42
+     *
+     * @Description 提示完后，跳转到权限配置页面
+     *
+     */
+    public static void toPermissionSetting(Activity activity, String permissionHint) {
+        Toast.makeText(activity.getApplicationContext(),permissionHint,Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        intent.setData(uri);
+        activity.startActivity(intent);
     }
 
     public static void setRationaleListener(RationaleListener rationaleListener){
